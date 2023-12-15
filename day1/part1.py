@@ -25,6 +25,8 @@ def first_and_last(line: str) -> (str):
     if len(line) == 1:
         if line[0] in digits_map:
             return line[0]
+        else:
+            return '0'
 
     for idx, char in enumerate(line):
         if char in digits_map:
