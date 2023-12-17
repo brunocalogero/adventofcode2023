@@ -1,6 +1,6 @@
 import copy
 # NOTE: nth, number to coordinate mapping system?
-
+# NOTE: should probably have looked for special characters first, then checked if adjacent values were digits
 
 global_count = 0
 special_characters = "!@#$%^&*()-+?_=,<>/"
@@ -57,7 +57,7 @@ def get_valid_num(row: int, col: int, two_dim_arr: list[list[str]], two_dim_arr_
                     modified_row[col - 1] = 'x'
                     modified_row[col] = 'x'
                     two_dim_arr_check[row] = ''.join(modified_row)
-                    # left digit
+                # left digit
                 elif col + 1 < len(two_dim_arr[row]) and two_dim_arr[row][col + 1].isdigit():
                     num = two_dim_arr[row][col] + two_dim_arr[row][col + 1]
                     # mark all as visited
