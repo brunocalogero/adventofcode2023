@@ -36,6 +36,7 @@ if __name__ == '__main__':
     # loop through two dimensional array
     for row in range(len(two_dim_arr)):
         for col in range(len(two_dim_arr[row])):
+            print ((row, col))
             # check if current character is a number
             if two_dim_arr[row][col].isdigit() and two_dim_arr_check[row][col] != 'x':
                 num = ''
@@ -44,53 +45,48 @@ if __name__ == '__main__':
                 for adjacent_value in adjacent_values:
                     if adjacent_value in special_characters:
                         # logic to retrieve the full number
-                        # middle digit (there is a digit to the left and right)
-                        if col + 1 < len(two_dim_arr[row]) and col - 1 >= 0:
-                            if two_dim_arr[row][col + 1].isdigit() and two_dim_arr[row][col - 1].isdigit():
-                                num = two_dim_arr[row][col - 1] + two_dim_arr[row][col] + two_dim_arr[row][col + 1]
-                                # mark all as visited
-                                modified_row = list(two_dim_arr_check[row])
-                                modified_row[col] = 'x'
-                                modified_row[col - 1] = 'x'
-                                modified_row[col + 1] = 'x'
-                                two_dim_arr_check[row] = ''.join(modified_row)
                         # leftmost digit
-                        elif col + 2 < len(two_dim_arr[row]):
-                            if two_dim_arr[row][col + 2].isdigit():
-                                num = two_dim_arr[row][col] + two_dim_arr[row][col + 1] + two_dim_arr[row][col + 2]
-                                # mark all as visited
-                                modified_row = list(two_dim_arr_check[row])
-                                modified_row[col] = 'x'
-                                modified_row[col + 1] = 'x'
-                                modified_row[col + 2] = 'x'
-                                two_dim_arr_check[row] = ''.join(modified_row)
-                        # left digit
-                        elif col + 1 < len(two_dim_arr[row]):
-                            if two_dim_arr[row][col + 1].isdigit():
-                                num = two_dim_arr[row][col] + two_dim_arr[row][col + 1]
-                                # mark all as visited
-                                modified_row[col] = 'x'
-                                modified_row[col + 1] = 'x'
-                                two_dim_arr_check[row] = ''.join(modified_row)
+                        if col + 2 < len(two_dim_arr[row]) and two_dim_arr[row][col + 1].isdigit() and two_dim_arr[row][col + 2].isdigit():
+                            num = two_dim_arr[row][col] + two_dim_arr[row][col + 1] + two_dim_arr[row][col + 2]
+                            # mark all as visited
+                            modified_row = list(two_dim_arr_check[row])
+                            modified_row[col] = 'x'
+                            modified_row[col + 1] = 'x'
+                            modified_row[col + 2] = 'x'
+                            two_dim_arr_check[row] = ''.join(modified_row)
+                        # middle digit (there is a digit to the left and right)
+                        elif col + 1 < len(two_dim_arr[row]) and col - 1 >= 0 and two_dim_arr[row][col + 1].isdigit() and two_dim_arr[row][col - 1].isdigit():
+                            num = two_dim_arr[row][col - 1] + two_dim_arr[row][col] + two_dim_arr[row][col + 1]
+                            # mark all as visited
+                            modified_row = list(two_dim_arr_check[row])
+                            modified_row[col] = 'x'
+                            modified_row[col - 1] = 'x'
+                            modified_row[col + 1] = 'x'
+                            two_dim_arr_check[row] = ''.join(modified_row)
                         # rightmost digit
-                        elif col - 2 >= 0:
-                            if two_dim_arr[row][col - 2].isdigit():
-                                num = two_dim_arr[row][col - 2] + two_dim_arr[row][col - 1] + two_dim_arr[row][col]
-                                # mark all as visited
-                                modified_row = list(two_dim_arr_check[row])
-                                modified_row[col - 2] = 'x'
-                                modified_row[col - 1] = 'x'
-                                modified_row[col] = 'x'
-                                two_dim_arr_check[row] = ''.join(modified_row)
+                        elif col - 2 >= 0 and two_dim_arr[row][col - 2].isdigit() and two_dim_arr[row][col - 1].isdigit() :
+                            num = two_dim_arr[row][col - 2] + two_dim_arr[row][col - 1] + two_dim_arr[row][col]
+                            # mark all as visited
+                            modified_row = list(two_dim_arr_check[row])
+                            modified_row[col - 2] = 'x'
+                            modified_row[col - 1] = 'x'
+                            modified_row[col] = 'x'
+                            two_dim_arr_check[row] = ''.join(modified_row)
+                         # left digit
+                        elif col + 1 < len(two_dim_arr[row]) and two_dim_arr[row][col + 1].isdigit():
+                            num = two_dim_arr[row][col] + two_dim_arr[row][col + 1]
+                            # mark all as visited
+                            modified_row[col] = 'x'
+                            modified_row[col + 1] = 'x'
+                            two_dim_arr_check[row] = ''.join(modified_row)
                         # right digit
-                        elif col - 1 >= 0:
-                            if two_dim_arr[row][col - 1].isdigit():
-                                num = two_dim_arr[row][col - 1] + two_dim_arr[row][col]
-                                # mark all as visited
-                                modified_row = list(two_dim_arr_check[row])
-                                modified_row[col - 1] = 'x'
-                                modified_row[col] = 'x'
-                                two_dim_arr_check[row] = ''.join(modified_row)
+                        elif col - 1 >= 0 and two_dim_arr[row][col - 1].isdigit():
+                            num = two_dim_arr[row][col - 1] + two_dim_arr[row][col]
+                            # mark all as visited
+                            modified_row = list(two_dim_arr_check[row])
+                            modified_row[col - 1] = 'x'
+                            modified_row[col] = 'x'
+                            two_dim_arr_check[row] = ''.join(modified_row)
                         # single digit
                         else:
                             num = two_dim_arr[row][col]
