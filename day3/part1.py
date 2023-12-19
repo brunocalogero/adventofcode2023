@@ -1,6 +1,7 @@
 import copy
 # NOTE: nth, number to coordinate mapping system?
-# NOTE: should probably have looked for special characters first, then checked if adjacent values were digits
+# NOTE: should probably have looked for special characters first, then checked if adjacent values were digits.
+# NOTE: could have recorded each number with their position as a struct and marked as adjacent to special char.
 
 global_count = 0
 special_characters = "!@#$%^&*()-+?_=,<>/"
