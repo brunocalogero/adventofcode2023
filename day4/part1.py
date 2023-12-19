@@ -1,5 +1,5 @@
 
-win_count = 0
+tot_point_count = 0
 
 if __name__ == '__main__':
     with open('./day4/input.txt', 'r') as file:
@@ -23,5 +23,5 @@ if __name__ == '__main__':
             if len(our_winning_numbers) == 0:
                 continue
 
-            win_count += (2 ** (len(our_winning_numbers) - 1))
-    print(win_count)
+            tot_point_count += (2 ** (len(our_winning_numbers) - 1))
+    print(tot_point_count)
