@@ -1,4 +1,5 @@
 from typing import List, Tuple
+from itertools import chain
 
 def generate_ranges_from_seed_numbers(seed_numbers: List[int]) -> List[Tuple[int, int]]:
     ranges = []
@@ -22,22 +23,21 @@ def find_common_range(range1, range2):
     if common_start <= common_end:
         return common_start, common_end
     else:
-        return None  # No common range
+        return None
 
 
-
-def compute_dest(dest_src_map, seed_source) -> List[int]:
+def compute_dest(dest_src_map, seed_source) -> List[Tuple[int, int]]:
+    dest_ranges = []
     for k, v in dest_src_map.items():
-        # check that seed range is in source range
-        if seed_source[0] >= k and seed_source[1] <= (k + v[1] - 1):
+        if seed_source[1] > k:
             seed_vals = find_common_range((k, k + v[1] - 1), seed_source)
-            # compute destination distance based on source distance
             if seed_vals != None:
                 first_dest = v[0] + (seed_vals[0] - k)
                 last_dest = v[0] + (seed_vals[1] - k)
-                print(first_dest, last_dest)
-                return (first_dest, last_dest)
-    return seed_source
+                dest_ranges.append((first_dest, last_dest))
+    if len(dest_ranges) > 0:
+        return dest_ranges
+    return [seed_source]
 
 
 if __name__ == '__main__':
@@ -60,16 +60,17 @@ if __name__ == '__main__':
             computed_map[int(source_dest_range[1])] = (int(source_dest_range[0]), int(source_dest_range[2]))
         all_maps.append(computed_map)
 
-    # get location for each seed
     locations = []
     for seed_tuple in seed_list_tuple:
-        dest = (0, 0)
+        dests = []
         for idx, dest_src_map in enumerate(all_maps):
             if idx == 0:
-                dest = compute_dest(dest_src_map, seed_tuple)
+                dests = compute_dest(dest_src_map, seed_tuple)
             else:
-                # always return the range and then take the smallest dest before appending..
-                dest = compute_dest(dest_src_map, dest)
-        locations.append(min(dest))
-
+                dests_temp = []
+                for dest in dests:
+                    dests_temp.append(compute_dest(dest_src_map, dest))
+                dests = list(chain(*dests_temp))
+        first_dests = [dest_tuple[0] for dest_tuple in dests]
+        locations.append(min(first_dests))
     print(min(locations))
