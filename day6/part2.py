@@ -6,8 +6,16 @@ if __name__ == '__main__':
 
         time_line_split = file_lines[0].split()
         distance_line_split = file_lines[1].split()
-        times = [int(time_str) for time_str in time_line_split[1:]]
-        distances = [int(dist_str) for dist_str in distance_line_split[1:]]
+
+        time = ''
+        for time_str in time_line_split[1:]:
+            time += time_str
+        times = [int(time)]
+
+        distance = ''
+        for dist_str in distance_line_split[1:]:
+            distance += dist_str
+        distances = [int(distance)]
 
         records = []
         for idx, time in enumerate(times):
